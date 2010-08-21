@@ -6,3 +6,5 @@ MMP is a parser which recursively descends BNF, with special states for other pa
 
 MMP is also designed so that the naive implementation of a grammar will provide nice error messages.
 
+The name is selected to be extremely unlikely to collide with any other projects.
+
