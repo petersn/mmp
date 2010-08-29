@@ -1,0 +1,36 @@
+
+# Example grammar for a verbose programming language
+
+newlines: = "nl"~+
+
+expression = ext~shunting_yard
+
+keyword: = k_if | k_unless | k_while | k_until | k_for_simple | k_for_pairs | k_return
+
+particle: = keyword | expression | function_definition
+particle_separator: = newlines | "semicolon"~
+additional_particle: = particle_separator~ particle
+block = particle additional_particle...
+
+additional_argument: = "separator"~ "token"
+function_arguments   = nil | "token" additional_argument...
+function_definition  = "token" "open_paren"~ function_arguments "close_paren"~ brace_enclosed_block
+
+brace_enclosed_block: = newlines? "open_brace"~ newlines? block newlines? "close_brace"~
+simple_expr_block: = expression brace_enclosed_block
+
+k_if         = "statement;if;"~ simple_expr_block else_block?
+k_unless     = "statement;unless;"~ simple_expr_block else_block?
+k_while      = "statement;while;"~ simple_expr_block else_block?
+k_until      = "statement;until;"~ simple_expr_block else_block?
+k_for_simple = "statement;for;"~  "particle_each"~ "token" "particle_in"~ simple_expr_block
+k_for_pairs  = "statement;for;"~ "particle_each"~ "particle_pair"~ "token" "separator"~ "token" "particle_in"~ simple_expr_block
+k_return     = "statement;return;"~ expression?
+
+k_else       = "statement;else;"~ brace_enclosed_block
+k_elif       = "statement;elif;"~ simple_expr_block
+
+else_block:  = k_elif... k_else
+
+main = newlines? block newlines?
+

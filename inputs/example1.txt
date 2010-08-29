@@ -1,0 +1,36 @@
+
+# An example input file to parse with pbnfpgp.py
+# Simply run:
+#   ./pbnfpgp.py inputs/example1.txt
+
+x = 11
+
+y = 0
+y += x/2
+
+while y+1 != x-1 {
+	x -= 1; y += 1
+}
+
+# Declare the function lookup:
+
+lookup ( symbol ) {
+	if symbol == "print" {
+		return print
+	} else {
+		return exit
+	}
+}
+
+if x > 5 and x < 20 {
+
+	# Evaluate some complex looking expression:
+
+	(lookup("print"))("a", 2+3*-4.0/(5))
+
+}
+
+for each pair x, y in reverse_list(points()) {
+	print (x, y)
+}
+
