@@ -12,6 +12,15 @@ while y+1 != x-1 {
 	x -= 1; y += 1
 }
 
+# One may continue a line with \.
+# This is because of the rule no_linebreak in the lexer file.
+# Example:
+
+z = \
+50 \
++ \
+x
+
 # Declare the function lookup:
 
 lookup ( symbol ) {
