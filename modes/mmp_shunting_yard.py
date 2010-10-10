@@ -99,6 +99,8 @@ def parse( t ):
 								(entry.assoc == "right" and entry.pres < stack[-1].pres) ):
 				operator = stack.pop()
 				output.append( ("operator", operator.name, operator.arity) )
+				if context[-1][0] == "call":
+					context[-1][2] -= operator.arity-1
 			stack.append( entry )
 
 			value_last = False
